@@ -16,6 +16,7 @@ type Rules struct {
 	Value int    `json:"value"`
 }
 
+// VarifyRules returns which 'rules' have not been satisfied by the 'password'
 func (v *Verifier) VarifyRules() []string {
 	nomatch := []string{}
 	for _, rule := range v.Rules {
@@ -52,10 +53,12 @@ func (v *Verifier) VarifyRules() []string {
 	return nomatch
 }
 
+// MinSize checks if the 'password' has at least 'value' characters
 func MinSize(password string, value int) bool {
 	return len(password) >= value
 }
 
+// MinUppercase checks if the 'password' has at least 'value' uppercase characters
 func MinUppercase(password string, value int) bool {
 	count := 0
 	for _, r := range password {
@@ -69,6 +72,7 @@ func MinUppercase(password string, value int) bool {
 	return value == 0
 }
 
+// MinLowercase checks if the 'password' has at least 'value' lowercase characters
 func MinLowercase(password string, value int) bool {
 	count := 0
 	for _, r := range password {
@@ -82,6 +86,7 @@ func MinLowercase(password string, value int) bool {
 	return value == 0
 }
 
+// MinDigit checks if the 'password' has at least 'value' digits
 func MinDigit(password string, value int) bool {
 	count := 0
 	for _, r := range password {
@@ -95,12 +100,14 @@ func MinDigit(password string, value int) bool {
 	return value == 0
 }
 
+// MinSpecialChars checks if the 'password' has at least 'value' special characters. Special characters: "!@#$%^&*()-+\/{}[]"
 func MinSpecialChars(password string, value int) bool {
 	re := regexp.MustCompile(`[!@#$%^&*()-+\/{}\[\]]`)
 	count := len(re.FindAll([]byte(password), -1))
 	return count >= value
 }
 
+// NoRepeted checks if the 'password' has no repeated characters in sequence. ("aab": false, "aba": true)
 func NoRepeted(password string) bool {
 	if len(password) <= 1 {
 		return true

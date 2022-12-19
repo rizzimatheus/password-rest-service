@@ -1,3 +1,5 @@
+# Senha Válida - Studio Sol
+
 ## How to Run
 
 `URL: http://localhost:8080/verify`
@@ -18,3 +20,8 @@ docker run --name verifier-container -p 8080:8080 -d verifier-service
 go run ./cmd/api
 ```
 
+#### Tests
+
+```bash
+go test -v ./cmd/api
+```
