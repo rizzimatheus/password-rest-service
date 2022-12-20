@@ -16,33 +16,33 @@ type Rules struct {
 	Value int    `json:"value"`
 }
 
-// VarifyRules returns which 'rules' have not been satisfied by the 'password'
-func (v *Verifier) VarifyRules() []string {
+// verifyRules returns which 'rules' have not been satisfied by the 'password'
+func (v *Verifier) verifyRules() []string {
 	nomatch := []string{}
 	for _, rule := range v.Rules {
 		switch rule.Rule {
 		case "minSize":
-			if !MinSize(v.Password, rule.Value) {
+			if !minSize(v.Password, rule.Value) {
 				nomatch = append(nomatch, "minSize")
 			}
 		case "minUppercase":
-			if !MinUppercase(v.Password, rule.Value) {
+			if !minUppercase(v.Password, rule.Value) {
 				nomatch = append(nomatch, "minUppercase")
 			}
 		case "minLowercase":
-			if !MinLowercase(v.Password, rule.Value) {
+			if !minLowercase(v.Password, rule.Value) {
 				nomatch = append(nomatch, "minLowercase")
 			}
 		case "minDigit":
-			if !MinDigit(v.Password, rule.Value) {
+			if !minDigit(v.Password, rule.Value) {
 				nomatch = append(nomatch, "minDigit")
 			}
 		case "minSpecialChars":
-			if !MinSpecialChars(v.Password, rule.Value) {
+			if !minSpecialChars(v.Password, rule.Value) {
 				nomatch = append(nomatch, "minSpecialChars")
 			}
 		case "noRepeted":
-			if !NoRepeted(v.Password) {
+			if !noRepeted(v.Password) {
 				nomatch = append(nomatch, "noRepeted")
 			}
 		default:
@@ -53,13 +53,13 @@ func (v *Verifier) VarifyRules() []string {
 	return nomatch
 }
 
-// MinSize checks if the 'password' has at least 'value' characters
-func MinSize(password string, value int) bool {
+// minSize checks if the 'password' has at least 'value' characters
+func minSize(password string, value int) bool {
 	return len(password) >= value
 }
 
-// MinUppercase checks if the 'password' has at least 'value' uppercase characters
-func MinUppercase(password string, value int) bool {
+// minUppercase checks if the 'password' has at least 'value' uppercase characters
+func minUppercase(password string, value int) bool {
 	count := 0
 	for _, r := range password {
 		if unicode.IsUpper(r) {
@@ -72,8 +72,8 @@ func MinUppercase(password string, value int) bool {
 	return value == 0
 }
 
-// MinLowercase checks if the 'password' has at least 'value' lowercase characters
-func MinLowercase(password string, value int) bool {
+// minLowercase checks if the 'password' has at least 'value' lowercase characters
+func minLowercase(password string, value int) bool {
 	count := 0
 	for _, r := range password {
 		if unicode.IsLower(r) {
@@ -86,8 +86,8 @@ func MinLowercase(password string, value int) bool {
 	return value == 0
 }
 
-// MinDigit checks if the 'password' has at least 'value' digits
-func MinDigit(password string, value int) bool {
+// minDigit checks if the 'password' has at least 'value' digits
+func minDigit(password string, value int) bool {
 	count := 0
 	for _, r := range password {
 		if unicode.IsDigit(r) {
@@ -100,15 +100,15 @@ func MinDigit(password string, value int) bool {
 	return value == 0
 }
 
-// MinSpecialChars checks if the 'password' has at least 'value' special characters. Special characters: "!@#$%^&*()-+\/{}[]"
-func MinSpecialChars(password string, value int) bool {
+// minSpecialChars checks if the 'password' has at least 'value' special characters. Special characters: "!@#$%^&*()-+\/{}[]"
+func minSpecialChars(password string, value int) bool {
 	re := regexp.MustCompile(`[!@#$%^&*()-+\/{}\[\]]`)
 	count := len(re.FindAll([]byte(password), -1))
 	return count >= value
 }
 
-// NoRepeted checks if the 'password' has no repeated characters in sequence. ("aab": false, "aba": true)
-func NoRepeted(password string) bool {
+// noRepeted checks if the 'password' has no repeated characters in sequence. ("aab": false, "aba": true)
+func noRepeted(password string) bool {
 	if len(password) <= 1 {
 		return true
 	}

@@ -19,7 +19,7 @@ func (app *Config) routes() http.Handler {
 		MaxAge:           300,
 	}))
 
-	mux.Post("/verify", app.VerifyPassword)
+	mux.Post("/verify", app.verifyPassword)
 
 	return mux
 }

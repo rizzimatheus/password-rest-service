@@ -21,7 +21,17 @@ go run ./cmd/api
 ```
 
 #### Tests
-
+- Run all tests
 ```bash
 go test -v ./cmd/api
+```
+
+- Run rules logic test
+```bash
+go test -v -run Test_rules ./cmd/api
+```
+
+- Run API test
+```bash
+go test -v -run Test_verifyPassword ./cmd/api
 ```

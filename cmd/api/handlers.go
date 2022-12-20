@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func (app *Config) VerifyPassword(w http.ResponseWriter, r *http.Request) {
+func (app *Config) verifyPassword(w http.ResponseWriter, r *http.Request) {
 	var requestPayload Verifier
 
 	err := app.readJSON(w, r, &requestPayload)
@@ -13,7 +13,7 @@ func (app *Config) VerifyPassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	nomatch := requestPayload.VarifyRules()
+	nomatch := requestPayload.verifyRules()
 
 	verify := len(nomatch) == 0
 
@@ -22,5 +22,5 @@ func (app *Config) VerifyPassword(w http.ResponseWriter, r *http.Request) {
 		NoMatch: nomatch,
 	}
 
-	app.writeJSON(w, http.StatusAccepted, payload)
+	app.writeJSON(w, http.StatusOK, payload)
 }

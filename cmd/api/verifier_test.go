@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMinSize(t *testing.T) {
+func Test_rules_minSize(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -20,14 +20,14 @@ func TestMinSize(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := MinSize(data.password, data.value)
+		result := minSize(data.password, data.value)
 		if result != data.want {
-			t.Errorf("MinSize(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("minSize(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestMinUppercase(t *testing.T) {
+func Test_rules_minUppercase(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -42,14 +42,14 @@ func TestMinUppercase(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := MinUppercase(data.password, data.value)
+		result := minUppercase(data.password, data.value)
 		if result != data.want {
-			t.Errorf("MinUppercase(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("minUppercase(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestMinLowercase(t *testing.T) {
+func Test_rules_minLowercase(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -64,14 +64,14 @@ func TestMinLowercase(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := MinLowercase(data.password, data.value)
+		result := minLowercase(data.password, data.value)
 		if result != data.want {
-			t.Errorf("MinLowercase(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("minLowercase(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestMinDigit(t *testing.T) {
+func Test_rules_minDigit(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -86,14 +86,14 @@ func TestMinDigit(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := MinDigit(data.password, data.value)
+		result := minDigit(data.password, data.value)
 		if result != data.want {
-			t.Errorf("MinDigit(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("minDigit(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestMinSpecialChars(t *testing.T) {
+func Test_rules_minSpecialChars(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -108,14 +108,14 @@ func TestMinSpecialChars(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := MinSpecialChars(data.password, data.value)
+		result := minSpecialChars(data.password, data.value)
 		if result != data.want {
-			t.Errorf("MinSpecialChars(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("minSpecialChars(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestNoRepeted(t *testing.T) {
+func Test_rules_noRepeted(t *testing.T) {
 	table := []struct {
 		password string
 		value    int
@@ -132,14 +132,14 @@ func TestNoRepeted(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := NoRepeted(data.password)
+		result := noRepeted(data.password)
 		if result != data.want {
-			t.Errorf("NoRepeted(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
+			t.Errorf("noRepeted(%s, %d): %t, want: %t", data.password, data.value, result, data.want)
 		}
 	}
 }
 
-func TestVarifyRules(t *testing.T) {
+func Test_rules_verifyRules(t *testing.T) {
 	table := []struct {
 		verifier Verifier
 		want     []string
@@ -178,9 +178,9 @@ func TestVarifyRules(t *testing.T) {
 	}
 
 	for _, data := range table {
-		result := data.verifier.VarifyRules()
+		result := data.verifier.verifyRules()
 		if !reflect.DeepEqual(result, data.want) {
-			t.Errorf("VarifyRules(%v, %v): %T %v, want: %T %v", data.verifier.Password, data.verifier.Rules, result, result, data.want, data.want)
+			t.Errorf("verifyRules(%v, %v): %T %v, want: %T %v", data.verifier.Password, data.verifier.Rules, result, result, data.want, data.want)
 		}
 	}
 }
