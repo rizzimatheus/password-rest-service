@@ -7,11 +7,11 @@
 ### With Docker
 
 ```bash
-docker build -t verifier-service .
+docker build -t verifier-rest-service .
 ```
 
 ```bash
-docker run --name verifier-container -p 8080:8080 -d verifier-service
+docker run --name verifier-rest -p 8080:8080 -d verifier-rest-service
 ```
 
 ### With Go
